@@ -56,9 +56,9 @@ const CustomInput = (props: TextInputProps & { isPassword?: boolean }) => {
     <View>
       <TextInput
         style={[styles.input, {
-          borderColor: !isEmailError && !isPasswordError ? '#56565a' : '#ee0a0a'
+          borderColor: !isEmailError && !isPasswordError ? '#75767f' : '#ee0a0a'
         }]}
-        placeholderTextColor={!isEmailError && !isPasswordError ? '#56565a' : '#ee0a0a'}
+        placeholderTextColor={!isEmailError && !isPasswordError ? '#75767f' : '#ee0a0a'}
         {...props}
         secureTextEntry={props.isPassword && !isPasswordVisible}
         onFocus={() => setIsFocused(true)}
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 45,
-    borderColor: '#56565a',
+    borderColor: '#75767f',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 15,
