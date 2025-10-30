@@ -7,6 +7,7 @@ import {
   Keyboard,
   Animated,
   Pressable,
+  Image,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Logo from '../../../assets/img/logo.svg';
@@ -14,6 +15,7 @@ import CustomInput from '../../components/CustomInput';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../navigation/AuthNavigation';
 import CustomButton from '../../components/CustomButton';
+import { useLanguage } from '../../context/LanguageContext';
 
 export type LoginScreenNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -29,6 +31,7 @@ interface LoginScreenProps {
 */
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+  const { language, flags } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -81,11 +84,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         <View style={styles.loginTop}>
           <Logo width={90} height={35} />
           <TouchableOpacity
-            style={{ flexDirection: 'row', gap: 5 }}
+            style={styles.langBtn}
             onPress={() => navigation.navigate('Language')}
           >
-            <Text>Flag</Text>
-            <Text>EN</Text>
+            <Image source={flags[language.code]} style={styles.flag} />
+            <Text style={styles.langCode}>{language.code}</Text>
           </TouchableOpacity>
         </View>
 
@@ -143,7 +146,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         <View style={styles.footer}>
           <CustomButton />
 
-          <Animated.View style={[styles.registerContainer, { opacity: fadeAnim }]}>
+          <Animated.View
+            style={[styles.registerContainer, { opacity: fadeAnim }]}
+          >
             <Text style={styles.registerText}>New to Payoneer?</Text>
             <Pressable onPress={() => navigation.navigate('TestScreens')}>
               <Text style={styles.registerLink}>Register</Text>
@@ -162,12 +167,30 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 15,
     paddingVertical: 10,
+    backgroundColor: '#fff',
   },
   loginTop: {
     marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  langBtn: {
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flag: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+    borderWidth: 1,
+    borderRadius: 9,
+    borderColor: '#75767f',
+  },
+  langCode: {
+    fontSize: 14,
   },
   loginTitle: {
     fontWeight: 'bold',

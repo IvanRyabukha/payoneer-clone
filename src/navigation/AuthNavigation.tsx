@@ -23,7 +23,7 @@ const AuthNavigation = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Register" component={SignupScreen} />
-      <Stack.Screen name="Language" component={LanguageScreen} />
+      <Stack.Screen name="Language" component={LanguageScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="TestScreens" component={TestScreen} />
     </Stack.Navigator>
   );
