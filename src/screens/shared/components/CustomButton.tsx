@@ -2,17 +2,23 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import React from 'react';
 
-const CustomButton = () => {
+type Props = {
+  label: string;
+  colors: string[];
+  handlePress: () => void;
+}
+
+const CustomButton: React.FC<Props> = ({ label, colors, handlePress }) => {
   return (
-    <TouchableOpacity style={styles.btn}>
+    <TouchableOpacity style={styles.btn} onPress={handlePress} >
       <LinearGradient
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         locations={[0, 0.2, 0.5]}
-        colors={['#a059fd', '#6E5DFF', '#045DDA']}
+        colors={colors}
         style={styles.lianerGradient}
       >
-        <Text style={styles.btnText}>Sign in</Text>
+        <Text style={styles.btnText}>{label}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );

@@ -10,12 +10,15 @@ import {
   Image,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Logo from '../../../assets/img/logo.svg';
-import CustomInput from '../../components/CustomInput';
+import Logo from '../../../../assets/img/logo.svg';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../../navigation/AuthNavigation';
-import CustomButton from '../../components/CustomButton';
-import { useLanguage } from '../../context/LanguageContext';
+import { AuthStackParamList } from '@/navigation/AuthNavigation';
+import { useLanguage } from '@/api/store/locale/LanguageContext';
+import EmailInput from '@/screens/AuthScreens/shared/components/EmailInput';
+import PasswordInput from '@/screens/AuthScreens/shared/components/PasswordInput';
+import CustomForm from '@/screens/AuthScreens/shared/components/CustomForm';
+import CustomButton from '@/screens/shared/components/CustomButton';
+
 
 export type LoginScreenNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -117,40 +120,49 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             width: '100%',
           }}
         >
-          <View style={styles.inputContainer}>
-            <CustomInput
+          <CustomForm>
+            <EmailInput
               placeholder="Email or username"
               value={email}
-              keyboardType={'email-address'}
-              autoCapitalize={'none'}
+              keyboardType="email-address"
+              autoCapitalize="none"
               onChangeText={setEmail}
             />
-
-            <CustomInput
+            <PasswordInput
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
-              isPassword={true}
             />
-          </View>
+          </CustomForm>
+
           <TouchableOpacity
             style={styles.forgotPassLink}
             onPress={() => navigation.navigate('TestScreens')}
           >
             <Text style={styles.forgotPassLinkText}>Forgot password?</Text>
           </TouchableOpacity>
+
+          {/* <TouchableOpacity
+            style={styles.forgotPassLink}
+            onPress={() => navigation.navigate('TestScreens2')}
+          >
+            <Text style={styles.forgotPassLinkText}>TestScreen2</Text>
+          </TouchableOpacity> */}
         </Animated.View>
 
         <View style={styles.flexSpacer} />
 
         <View style={styles.footer}>
-          <CustomButton />
-
+          <CustomButton
+            label="Sign in"
+            colors={['#a059fd', '#6E5DFF', '#045DDA']}
+            handlePress={() => {}}
+          />
           <Animated.View
             style={[styles.registerContainer, { opacity: fadeAnim }]}
           >
             <Text style={styles.registerText}>New to Payoneer?</Text>
-            <Pressable onPress={() => navigation.navigate('TestScreens')}>
+            <Pressable onPress={() => navigation.navigate('Register')}>
               <Text style={styles.registerLink}>Register</Text>
             </Pressable>
           </Animated.View>
@@ -195,10 +207,6 @@ const styles = StyleSheet.create({
   loginTitle: {
     fontWeight: 'bold',
     fontSize: 18,
-  },
-  inputContainer: {
-    gap: 20,
-    marginTop: 20,
   },
   forgotPassLink: {
     paddingHorizontal: 15,

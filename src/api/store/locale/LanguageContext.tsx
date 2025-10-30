@@ -1,6 +1,7 @@
 import React, {createContext, useState, useContext } from 'react';
-import { Language, flags, countries } from '../data/language';
+import { Language, flags, countries } from './data/language';
 
+{/*TODO: Rename context to locale*/}
 type LangugaeContextType = {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -21,10 +22,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode}> = ({ child
 };
 
 export const useLanguage = () => {
-  const ctx = useContext(LanguageContext);
-  if(!ctx) {
+  const context = useContext(LanguageContext);
+  if(!context) {
     throw new Error('useLanguage must be used within LanguageProvider');
   }
 
-  return ctx;
+  return context;
 };

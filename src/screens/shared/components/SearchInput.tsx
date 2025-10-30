@@ -20,7 +20,8 @@ const SearchInput = (props: TextInputProps) => {
           styles.input,
           { borderColor: isFocused ? '#056eed' : '#75767f' },
         ]}
-        placeholderTextColor={isFocused ? '#056eed' : '#75767f'}
+        placeholder="Search"
+        placeholderTextColor={isFocused ? '#056eed' : '#414141'}
         {...props}
         onFocus={() => setIsFocused(true)}
         onBlur={() => {

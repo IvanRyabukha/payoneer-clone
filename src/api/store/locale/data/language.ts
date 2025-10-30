@@ -8,12 +8,12 @@ export type Language = {
 };
 
 export const flags: Record<LanguageCode, ImageSourcePropType> = {
-  EN: require('../../assets/img/countryFlags/uk.png'),
-  CN: require('../../assets/img/countryFlags/china.png'),
-  RU: require('../../assets/img/countryFlags/russia.png'),
-  UA: require('../../assets/img/countryFlags/ukraine.png'),
-  DE: require('../../assets/img/countryFlags/germany.png'),
-  JP: require('../../assets/img/countryFlags/japan.png'),
+  EN: require('../../../../../assets/img/countryFlags/uk.png'),
+  CN: require('../../../../../assets/img/countryFlags/china.png'),
+  RU: require('../../../../../assets/img/countryFlags/russia.png'),
+  UA: require('../../../../../assets/img/countryFlags/ukraine.png'),
+  DE: require('../../../../../assets/img/countryFlags/germany.png'),
+  JP: require('../../../../../assets/img/countryFlags/japan.png'),
 };
 
 export const countries: Language[] = [

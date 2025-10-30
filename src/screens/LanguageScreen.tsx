@@ -11,11 +11,12 @@ import {
 import React, { useRef, useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/AuthNavigation';
-import SearchInput from '../components/SearchInput';
-import CountryItem from '../components/CountryItem';
+import CountryItem from './shared/components/CountryItem';
 import EmptyCountryList from '../components/EmptyCountryList';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../api/store/locale/LanguageContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import SearchInput from './shared/components/SearchInput';
+import ListOfCountries from './shared/components/ListOfCountries';
 
 export type LanguageScreenNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -72,11 +73,12 @@ const LanguageScreen: React.FC<LanguageScreenProps> = ({ navigation }) => {
           <Text style={styles.headerTitle}>Language</Text>
         </View>
         <SearchInput
-          placeholder="Search"
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
       </Animated.View>
+
+      {/* <ListOfCountries filtered={filtered} searchQuery={searchQuery} navigation={navigation} handleScroll={handleScroll}/> */}
 
       {filtered.length === 0 ? (
         <EmptyCountryList isLanguage/>
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     left: 0,
     right: 0,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '400',
     zIndex: 1,
   },

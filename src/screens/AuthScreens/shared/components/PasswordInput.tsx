@@ -1,0 +1,96 @@
+import React, { useEffect, useState } from 'react';
+import {
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  Pressable,
+  View,
+  Text,
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+/*
+  1. Create animation for input: Default, Error, Focus
+*/
+
+const PasswordInput = (props: TextInputProps) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isBlur, setIsBlur] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const [isPasswordError, setPasswordError] = useState('');
+
+  useEffect(() => {
+    if (isBlur) {
+      if (!props.value) {
+        setPasswordError('Password is required');
+        return;
+      } else if (props.value.length < 7) {
+        setPasswordError('Password must contain at least 7 cheracters');
+        return;
+      }
+      setPasswordError('');
+      return;
+    }
+  }, [isBlur, props.value]);
+
+  return (
+    <View>
+      <TextInput
+        style={[
+          styles.input,
+          {
+            borderColor: !isPasswordError ? '#75767f' : '#ee0a0a',
+          },
+        ]}
+        placeholderTextColor={!isPasswordError ? '#75767f' : '#ee0a0a'}
+        {...props}
+        secureTextEntry={!isPasswordVisible}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => {
+          setIsFocused(false);
+          setIsBlur(true);
+        }}
+      />
+      {props.value && (
+        <Pressable
+          style={styles.btnIcon}
+          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+        >
+          <Ionicons
+            name={isPasswordVisible ? 'eye-outline' : 'eye-off-outline'}
+            size={20}
+          />
+        </Pressable>
+      )}
+
+      {isPasswordError && (
+        <Text style={styles.errorText}>{isPasswordError}</Text>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  input: {
+    width: '100%',
+    height: 45,
+    borderColor: '#75767f',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 15,
+    paddingRight: 40,
+  },
+  btnIcon: {
+    position: 'absolute',
+    right: 15,
+    top: 12,
+  },
+  errorText: {
+    paddingHorizontal: 15,
+    paddingTop: 5,
+    color: '#ee0a0a',
+  },
+});
+
+export default PasswordInput;
