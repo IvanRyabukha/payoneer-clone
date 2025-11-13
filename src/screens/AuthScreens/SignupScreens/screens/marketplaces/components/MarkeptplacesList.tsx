@@ -25,10 +25,12 @@ const MarkeptplacesList = ({ data, onSelect, selectedItems }: Props) => {
         />
       )}
       ListHeaderComponent={<Text style={styles.sectionHeader}>Popular</Text>}
-      showsVerticalScrollIndicator={false}
+      showsVerticalScrollIndicator={true}
       overScrollMode="always"
-      contentContainerStyle={{ paddingBottom: 20}}
-      style={styles.list}
+      contentContainerStyle={{
+        paddingBottom: 20,
+        paddingHorizontal: 15,
+      }}
     />
   );
 };
@@ -36,13 +38,10 @@ const MarkeptplacesList = ({ data, onSelect, selectedItems }: Props) => {
 export default MarkeptplacesList;
 
 const styles = StyleSheet.create({
-  list: {
-    paddingHorizontal: 15,
-  },
   sectionHeader: {
     color: '#666',
-    borderBottomColor: '#eee',
-    borderBottomWidth: 1,
+    borderBottomColor: '#474747',
+    borderBottomWidth: 0.5,
     paddingBottom: 8,
   },
 });

@@ -6,6 +6,7 @@ import Animated, {
   ZoomOut,
   LinearTransition,
 } from 'react-native-reanimated';
+import { useTheme } from '@/api/store/theme/ThemeContext';
 
 interface Props {
   name: string;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const ChipsListItem = ({ name, onDeleted }: Props) => {
+  const { theme } = useTheme();
   return (
     <Animated.View
       entering={ZoomIn.springify().damping(100)}
@@ -20,10 +22,24 @@ const ChipsListItem = ({ name, onDeleted }: Props) => {
       layout={LinearTransition.springify()}
       style={[styles.chipWrapper]}
     >
-      <Pressable style={styles.chip} onPress={onDeleted}>
-        <Text style={styles.chipText}>{name}</Text>
-        <View style={styles.chipClose}>
-          <X size={12} color={'#fff'} strokeWidth={3} />
+      <Pressable
+        style={[
+          styles.chip,
+          {
+            backgroundColor: theme.dark
+              ? theme.colors.inputBackground
+              : '#ebebeb',
+          },
+        ]}
+        onPress={onDeleted}
+      >
+        <Text style={[styles.chipText, { color: theme.colors.text }]}>
+          {name}
+        </Text>
+        <View
+          style={[styles.chipClose, { backgroundColor: theme.colors.text }]}
+        >
+          <X size={12} color={theme.dark ? '#000' : '#fff'} strokeWidth={3} />
         </View>
       </Pressable>
     </Animated.View>
@@ -39,7 +55,6 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ebebeb',
     paddingVertical: 10,
     paddingHorizontal: 12,
     borderRadius: 20,
@@ -51,7 +66,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
   },
   chipClose: {
-    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,

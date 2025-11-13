@@ -1,12 +1,12 @@
 import { ImageSourcePropType } from 'react-native';
 
-export type Countries = {
+export interface ICountries {
   id: number;
   counrtyName: string;
   countryFlag: ImageSourcePropType;
-};
+}
 
-export const countries: Countries[] = [
+export const countries: ICountries[] = [
   {
     id: 1,
     counrtyName: 'United Kingdom',

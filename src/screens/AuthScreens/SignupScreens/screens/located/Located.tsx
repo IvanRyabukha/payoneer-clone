@@ -8,32 +8,33 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { SignupStackParamList } from '../SignupScreen';
+import { SignupStackParamList } from '../../SignupScreen';
 import {
-  type Countries,
+  type ICountries,
   countries,
   defaultCountries,
-} from '../data/countryData';
-import CountryItem from '../../../shared/components/CountryItem';
-import { useScreenError } from '../../../../shared/hooks/useScreenError';
+} from '../../data/country.data';
+import CountryItem from '../../../../shared/components/CountryItem';
+import { useScreenError } from '../../../../../shared/hooks/useScreenError';
 import { TriangleAlert } from 'lucide-react-native';
-import CustomButton from '../../../shared/components/CustomButton';
-import SearchInput from '../../../shared/components/SearchInput';
+import CustomButton from '../../../../shared/components/CustomButton';
+import SearchInput from '../../../../shared/components/SearchInput';
+import { useTheme } from '@/api/store/theme/ThemeContext';
 
 type Props = {
   navigation: NativeStackNavigationProp<SignupStackParamList, 'Located'>;
 };
 
 const Located: React.FC<Props> = ({ navigation }) => {
+  const { theme } = useTheme();
+
   const [searchQuery, setSearchQuery] = useState('');
-  const [selected, setSelected] = useState<Countries | null>(null); // use geoloc for
+  const [selected, setSelected] = useState<ICountries | null>(null); // TODO:use geoloc for
   const [error, setError] = useScreenError('');
 
   const filtered = countries
-    .filter(
-      item =>
-        item.id !== selected?.id &&
-        item.counrtyName.toLowerCase().includes(searchQuery.toLowerCase()),
+    .filter(item =>
+      item.counrtyName.toLowerCase().includes(searchQuery.toLowerCase()),
     )
     .sort((item1, item2) => item1.counrtyName.localeCompare(item2.counrtyName));
 
@@ -47,13 +48,14 @@ const Located: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
       <View style={styles.top}>
-        <Text style={styles.title}>Where are you located?</Text>
-        <SearchInput
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
+        <Text style={[styles.title, { color: theme.colors.text }]}>
+          Where are you located?
+        </Text>
+        <SearchInput value={searchQuery} onChangeText={setSearchQuery} />
       </View>
 
       <FlatList
@@ -99,7 +101,7 @@ const Located: React.FC<Props> = ({ navigation }) => {
                     </Text>
                   </Pressable>
                 )}
-                <Text style={[styles.sectionTitle, {marginTop: 10}]}>
+                <Text style={[styles.sectionTitle, { marginTop: 10 }]}>
                   All countries
                 </Text>
               </>
@@ -122,7 +124,11 @@ const Located: React.FC<Props> = ({ navigation }) => {
       )}
 
       <View style={styles.footer}>
-        <CustomButton label={'Next'} colors={['#a059fd', '#6E5DFF', '#045DDA']} handlePress={handleNext} />
+        <CustomButton
+          label={'Next'}
+          colors={['#a059fd', '#6E5DFF', '#045DDA']}
+          handlePress={handleNext}
+        />
       </View>
     </View>
   );
@@ -133,8 +139,6 @@ export default Located;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderColor: 'red',
-    borderWidth: 1,
   },
   top: {
     paddingHorizontal: 15,

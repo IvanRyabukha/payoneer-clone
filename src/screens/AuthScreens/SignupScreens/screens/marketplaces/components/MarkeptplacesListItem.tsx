@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Checkbox } from 'react-native-paper';
+import { useTheme } from '@/api/store/theme/ThemeContext';
 
 interface Props {
   name: string;
@@ -9,18 +10,24 @@ interface Props {
 }
 
 const MarkeptplacesListItem = ({ name, onSelect, selected }: Props) => {
+  const { theme } = useTheme();
+
   return (
     <Pressable
       style={({ pressed }) => [
         styles.btn,
-        pressed && { backgroundColor: '#e7e7e7' },
+        pressed && {
+          backgroundColor: theme.dark
+            ? theme.colors.inputBackground
+            : '#e7e7e7',
+        },
       ]}
       onPress={onSelect}
     >
-      <Text style={styles.label}>{name}</Text>
+      <Text style={[styles.label, { color: theme.colors.text }]}>{name}</Text>
       <Checkbox
         status={selected ? 'checked' : 'unchecked'}
-        color={selected ? '#5b04cc' : ''}
+        color={selected ? '#b278fd' : ''}
       />
     </Pressable>
   );
@@ -36,6 +43,6 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   label: {
-    letterSpacing: 0.8
-  }
+    letterSpacing: 0.8,
+  },
 });

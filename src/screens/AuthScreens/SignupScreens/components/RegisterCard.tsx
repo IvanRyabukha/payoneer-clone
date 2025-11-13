@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { LucideIcon } from 'lucide-react-native';
 import AnimatedGradientIcon from './AnimatedGradientIcon';
@@ -7,8 +7,10 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   interpolateColor,
+  withSpring,
 } from 'react-native-reanimated';
 import { Checkbox } from 'react-native-paper';
+import { useTheme } from '@/api/store/theme/ThemeContext';
 
 type Props = {
   title?: string;
@@ -18,7 +20,7 @@ type Props = {
   selected: boolean;
   isCheckBox?: boolean;
   onPress: () => void;
-  setAdditionalInfo?: () => void;
+  onAdditionalInfo?: () => void;
 };
 
 const RegisterCard: React.FC<Props> = ({
@@ -29,13 +31,14 @@ const RegisterCard: React.FC<Props> = ({
   isCheckBox,
   additionalInfoIcon: IconAdd,
   onPress,
-  setAdditionalInfo,
+  onAdditionalInfo,
 }) => {
+  const { theme } = useTheme();
   const progress = useSharedValue(selected ? 1 : 0);
 
   useEffect(() => {
-    progress.value = withTiming(selected ? 1 : 0, {
-      duration: 300,
+    progress.value = withSpring(selected ? 1 : 0, {
+      duration: 250,
     });
   }, [selected]);
 
@@ -43,13 +46,13 @@ const RegisterCard: React.FC<Props> = ({
     const borderColor = interpolateColor(
       progress.value,
       [0, 1],
-      ['transparent', '#5b04cc'],
+      ['transparent', '#b278fd'],
     );
 
     const backgroundColor = interpolateColor(
       progress.value,
       [0, 1],
-      ['#fff', '#fefaff'],
+      [theme.dark ? '#2A2A2A' : '#ffffff', theme.dark ? '#3a3a3a' : '#fefaff'],
     );
 
     return {
@@ -59,23 +62,29 @@ const RegisterCard: React.FC<Props> = ({
   });
 
   return (
-    <Pressable onPress={onPress} style={{ marginTop: 15 }}>
+    <Pressable onPress={onPress}>
       <Animated.View style={[styles.cardWrapper, animationStyle]}>
         <AnimatedGradientIcon icon={Icon} selected={selected} size={25} />
 
         <View style={styles.cardInfo}>
-          {title && <Text style={styles.cardTitle}>{title}</Text>}
-          <Text style={styles.cardDesc}>{description}</Text>
+          {title && (
+            <Text style={[styles.cardTitle, { color: theme.colors.text }]}>
+              {title}
+            </Text>
+          )}
+          <Text style={[styles.cardDesc, { color: theme.colors.text }]}>
+            {description}
+          </Text>
         </View>
         {IconAdd && (
-          <Pressable onPress={setAdditionalInfo} style={{ marginLeft: 15 }}>
-            <IconAdd size={20} />
+          <Pressable onPress={onAdditionalInfo} style={{ marginLeft: 15 }}>
+            <IconAdd size={20} color={theme.colors.text} />
           </Pressable>
         )}
         {isCheckBox && (
           <Checkbox
             status={selected ? 'checked' : 'unchecked'}
-            color={selected ? '#5b04cc' : ''}
+            color={selected ? '#b278fd' : ''}
           />
         )}
       </Animated.View>
@@ -87,7 +96,6 @@ export default RegisterCard;
 
 const styles = StyleSheet.create({
   cardWrapper: {
-    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 15,
 

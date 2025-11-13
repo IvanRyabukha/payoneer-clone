@@ -1,6 +1,7 @@
 import { StyleSheet, Text, Image, Pressable } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '@/api/store/theme/ThemeContext';
 
 type Props = {
   language: string;
@@ -15,23 +16,41 @@ const CountryItem: React.FC<Props> = ({
   isSelected,
   onSelected,
 }) => {
+  const { theme } = useTheme();
+
   return (
     <Pressable
       style={({ pressed }) => [
         styles.container,
-        pressed && { backgroundColor: '#e7e7e7' },
-        isSelected && { backgroundColor: '#e7e7e7' },
+        pressed && {
+          backgroundColor: theme.dark
+            ? theme.colors.inputBackground
+            : '#e7e7e7',
+        },
+        isSelected && {
+          backgroundColor: theme.dark
+            ? theme.colors.inputBackground
+            : '#e7e7e7',
+        },
       ]}
       onPress={onSelected}
       disabled={isSelected}
     >
-      <Image source={flag} style={styles.flag} />
-      <Text style={styles.language}>{language}</Text>
+      <Image
+        source={flag}
+        style={[
+          styles.flag,
+          { borderColor: theme.dark ? theme.colors.text : '#75767f' },
+        ]}
+      />
+      <Text style={[styles.language, { color: theme.colors.text }]}>
+        {language}
+      </Text>
       {isSelected && (
         <Ionicons
           name="checkmark-outline"
           size={22}
-          color={'#6a009b'}
+          color={'#b278fd'}
           style={styles.selectedIconCheck}
         />
       )}
@@ -55,8 +74,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderWidth: 1,
-    borderRadius: 9,
-    borderColor: '#75767f',
+    borderRadius: 10,
   },
   language: {
     fontSize: 16,

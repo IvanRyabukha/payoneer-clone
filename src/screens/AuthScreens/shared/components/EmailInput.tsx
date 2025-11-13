@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useTheme } from '@/api/store/theme/ThemeContext';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -14,23 +15,25 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 */
 
 const EmailInput = (props: TextInputProps) => {
+  const { theme } = useTheme();
+
   const [isBlur, setIsBlur] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
-  const [isEmailError, setEmailError] = useState('');
+  const [isEmailError, setIsEmailError] = useState('');
 
   useEffect(() => {
     if (isBlur) {
       const emailRegEx = /^[a-zA-Z0-9._!?@-]{1,64}$/;
       if (!props.value) {
-        setEmailError('Email or username is required');
+        setIsEmailError('Email or username is required');
         return;
       } else if (!emailRegEx.test(props.value)) {
-        setEmailError('Enter a valid username');
+        setIsEmailError('Enter a valid username');
         return;
       }
 
-      setEmailError('');
+      setIsEmailError('');
       return;
     }
   }, [props.value, isBlur]);
@@ -41,7 +44,9 @@ const EmailInput = (props: TextInputProps) => {
         style={[
           styles.input,
           {
-            borderColor: !isEmailError ? '#75767f' : '#ee0a0a',
+            borderColor: !isEmailError ? theme.colors.inputBorder : '#ee0a0a',
+            backgroundColor: theme.colors.inputBackground,
+            color: theme.colors.text,
           },
         ]}
         placeholderTextColor={!isEmailError ? '#75767f' : '#ee0a0a'}
@@ -57,7 +62,11 @@ const EmailInput = (props: TextInputProps) => {
           style={styles.btnIcon}
           onPress={() => props.onChangeText?.('')}
         >
-          <Ionicons name="close-outline" size={20} />
+          <Ionicons
+            name="close-outline"
+            size={20}
+            color={theme.colors.text}
+          />
         </Pressable>
       )}
       {isEmailError && <Text style={styles.errorText}>{isEmailError}</Text>}
@@ -69,7 +78,6 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 45,
-    borderColor: '#75767f',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 15,

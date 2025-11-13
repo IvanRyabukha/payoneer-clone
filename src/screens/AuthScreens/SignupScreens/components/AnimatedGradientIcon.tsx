@@ -8,6 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
+import { useTheme } from '@/api/store/theme/ThemeContext';
 
 type Props = {
   icon: LucideIcon;
@@ -20,6 +21,8 @@ const AnimatedGradientIcon: React.FC<Props> = ({
   selected,
   size = 25,
 }) => {
+  const { theme } = useTheme();
+
   const opacity = useSharedValue(selected ? 1 : 0);
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const AnimatedGradientIcon: React.FC<Props> = ({
   return (
     <View style={[styles.container, { width: size, height: size }]}>
       <View style={styles.center}>
-        <Icon size={size} color={'#000'} strokeWidth={1.5} />
+        <Icon size={size} color={theme.colors.text} strokeWidth={1.5} />
       </View>
 
       <Animated.View

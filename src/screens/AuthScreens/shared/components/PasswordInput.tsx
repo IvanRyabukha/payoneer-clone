@@ -1,3 +1,4 @@
+import { useTheme } from '@/api/store/theme/ThemeContext';
 import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
@@ -14,6 +15,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 */
 
 const PasswordInput = (props: TextInputProps) => {
+  const { theme } = useTheme();
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isBlur, setIsBlur] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -40,7 +43,11 @@ const PasswordInput = (props: TextInputProps) => {
         style={[
           styles.input,
           {
-            borderColor: !isPasswordError ? '#75767f' : '#ee0a0a',
+            borderColor: !isPasswordError
+              ? theme.colors.inputBorder
+              : '#ee0a0a',
+            backgroundColor: theme.colors.inputBackground,
+            color: theme.colors.text,
           },
         ]}
         placeholderTextColor={!isPasswordError ? '#75767f' : '#ee0a0a'}
@@ -60,6 +67,7 @@ const PasswordInput = (props: TextInputProps) => {
           <Ionicons
             name={isPasswordVisible ? 'eye-outline' : 'eye-off-outline'}
             size={20}
+            color={theme.colors.text}
           />
         </Pressable>
       )}
@@ -75,7 +83,6 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 45,
-    borderColor: '#75767f',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 15,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1029295450891",
+    "project_id": "payoneer-clone",
+    "storage_bucket": "payoneer-clone.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029295450891:android:7d69751692ba466e7e100e",
+        "android_client_info": {
+          "package_name": "com.payoneerclone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVCfh3H3Xip_LzCa9SaV-5BPQ_wIt43zI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

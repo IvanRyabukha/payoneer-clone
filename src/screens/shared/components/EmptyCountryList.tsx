@@ -1,24 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { MailSearchIcon } from './MailSearchIcon';
+import { useTheme } from '@/api/store/theme/ThemeContext';
 
 type Props = {
   isLanguage?: boolean;
 };
 
 const EmptyCountryList: React.FC<Props> = ({ isLanguage }) => {
+  const { theme } = useTheme();
   return (
     <View style={styles.container}>
-        <MailSearchIcon />
+      <MailSearchIcon />
       {isLanguage ? (
-        <Text style={styles.textInfo}>
+        <Text style={[styles.textInfo, { color: theme.colors.text }]}>
           No matching results.{'\n'} Only supported countries/region are {'\n'}{' '}
           listed.
         </Text>
       ) : (
-        <Text style={styles.textInfo}>
-          No matching results.{'\n'}
-        </Text>
+        <Text style={[styles.textInfo, { color: theme.colors.text }]}>No matching results.{'\n'}</Text>
       )}
     </View>
   );
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 30,
     paddingVertical: 20,
-    backgroundColor: '#fff',
     alignItems: 'center',
   },
   textInfo: {
@@ -39,6 +38,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     letterSpacing: 0.8,
-    width: '100%'
+    width: '100%',
   },
 });

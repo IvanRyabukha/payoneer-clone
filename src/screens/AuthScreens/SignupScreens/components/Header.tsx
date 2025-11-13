@@ -1,6 +1,8 @@
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { SignupStackParamList } from '../SignupScreen';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
 type Props = {
@@ -8,11 +10,16 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ title }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<SignupStackParamList>>();
+
   return (
     <View style={[styles.header]}>
       <View style={styles.headerTop}>
-        <Pressable style={styles.backBtn} onPress={() => navigation.goBack()}>
+        <Pressable style={styles.backBtn} onPress={() => {
+          if (navigation.canGoBack()) {
+            navigation.goBack();
+          }
+        }}>
           <Ionicons name="chevron-back-outline" size={26} />
         </Pressable>
         <Text style={styles.headerTitle}>{title}</Text>

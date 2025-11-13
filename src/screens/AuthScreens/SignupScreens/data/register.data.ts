@@ -22,7 +22,7 @@ export type RegisterData = {
   additionalInfoDescription?: string[];
 };
 
-export const businessAboutData: RegisterData[] = [
+export const BUSINESS_ABOUT_DATA: RegisterData[] = [
   {
     id: 1,
     title: 'I own or represent a registered company',
@@ -37,7 +37,7 @@ export const businessAboutData: RegisterData[] = [
   },
 ];
 
-export const businessDescribeData: RegisterData[] = [
+export const BUSINESS_DESCRIBE_DATA: RegisterData[] = [
   {
     id: 1,
     description: 'Online seller',
@@ -55,7 +55,7 @@ export const businessDescribeData: RegisterData[] = [
   },
 ];
 
-export const howToUseData: RegisterData[] = [
+export const HOW_TO_USE_DATA: RegisterData[] = [
   {
     id: 1,
     title: 'To get paid, send payments, and more',
@@ -83,7 +83,7 @@ export const howToUseData: RegisterData[] = [
   },
 ];
 
-export const receiveMoneyData: RegisterData[] = [
+export const RECEIVE_MONEY_DATA: RegisterData[] = [
   {
     id: 1,
     description:

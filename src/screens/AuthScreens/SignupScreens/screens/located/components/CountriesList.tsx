@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const SafeAreaView = () => {
+const CountriesList = () => {
   return (
     <View>
-      <Text>SafeAreaView</Text>
+      <Text>CountriesList</Text>
     </View>
   )
 }
 
-export default SafeAreaView
+export default CountriesList
 
 const styles = StyleSheet.create({})

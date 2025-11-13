@@ -5,6 +5,7 @@ import {
   BottomSheetModal,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
+import { useTheme } from '@/api/store/theme/ThemeContext';
 
 interface Props {
   title: string;
@@ -14,12 +15,15 @@ interface Props {
 type Ref = BottomSheetModal;
 
 const CustomBottomSheetModal = forwardRef<Ref, Props>((props, ref) => {
+  const { theme } = useTheme();
+
   const renderBackdrop = useCallback((props: any) => {
     return (
       <BottomSheetBackdrop
         appearsOnIndex={0}
         disappearsOnIndex={-1}
         {...props}
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
       />
     );
   }, []);
@@ -30,15 +34,29 @@ const CustomBottomSheetModal = forwardRef<Ref, Props>((props, ref) => {
       enablePanDownToClose={true}
       enableDynamicSizing
       backdropComponent={renderBackdrop}
-      backgroundStyle={{ backgroundColor: '#fff' }}
-      handleIndicatorStyle={{ backgroundColor: 'lightgray', width: 60 }}
+      backgroundStyle={{ backgroundColor: theme.colors.inputBackground}}
+      handleIndicatorStyle={{
+        backgroundColor: theme.dark ? theme.colors.text : 'lightgray',
+        width: 70,
+      }}
     >
       <BottomSheetView style={styles.contentContainer}>
-        <Text style={styles.containerHeadline}>{props.title}</Text>
+        <Text
+          style={[
+            styles.containerHeadline,
+            { color: theme.colors.text },
+          ]}
+        >
+          {props.title}
+        </Text>
         {props.additionalInfo?.map((item, index) => (
           <View key={index} style={styles.item}>
-            <View style={styles.dot} />
-            <Text style={styles.text}>{item}</Text>
+            <View
+              style={[styles.dot, { backgroundColor: theme.colors.text }]}
+            />
+            <Text style={[styles.text, { color: theme.colors.text }]}>
+              {item}
+            </Text>
           </View>
         ))}
       </BottomSheetView>
@@ -62,7 +80,7 @@ const styles = StyleSheet.create({
   item: {
     marginBottom: 15,
     flexDirection: 'row',
-    position: 'relative'
+    position: 'relative',
   },
   text: {
     marginLeft: 20,
@@ -70,9 +88,8 @@ const styles = StyleSheet.create({
   dot: {
     width: 5,
     height: 5,
-    backgroundColor: '#000',
     borderRadius: '50%',
     position: 'absolute',
-    top: 8
-  }
+    top: 8,
+  },
 });

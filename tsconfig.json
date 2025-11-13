@@ -28,7 +28,7 @@
     "src",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "assets/dontUsage"  ],
   "exclude": [
     "node_modules",
     "babel.config.js",
