@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../../navigation/AuthNavigation';
+import { AuthStackParamList } from '../../navigation/AuthStack';
 import { useLocale } from '../../api/store/locale/LocaleContext';
 import { useTheme } from '@/api/store/theme/ThemeContext';
 import LanguageList from './components/LanguageList';

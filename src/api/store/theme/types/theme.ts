@@ -12,8 +12,6 @@ export type Theme = {
   colors: ThemeColors;
 };
 
-//TODO: change colors
-
 export const LigthTheme: Theme = {
   dark: false,
   colors: {

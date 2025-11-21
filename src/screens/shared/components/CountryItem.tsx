@@ -1,7 +1,7 @@
 import { StyleSheet, Text, Image, Pressable } from 'react-native';
 import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useTheme } from '@/api/store/theme/ThemeContext';
+import { Check } from 'lucide-react-native';
 
 type Props = {
   language: string;
@@ -47,8 +47,7 @@ const CountryItem: React.FC<Props> = ({
         {language}
       </Text>
       {isSelected && (
-        <Ionicons
-          name="checkmark-outline"
+        <Check
           size={22}
           color={'#b278fd'}
           style={styles.selectedIconCheck}

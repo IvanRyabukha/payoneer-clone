@@ -3,11 +3,13 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import AuthNavigation from './AuthNavigation';
-import AppNavigation from './AppNavigation';
+import AuthStack from './AuthStack';
+import RegistrationStack from './RegistrationStack';
+import AppStack from './AppStack';
 
 export type RootStackParamList = {
   Auth: undefined;
+  Registration: undefined;
   App: undefined;
 };
 
@@ -20,8 +22,9 @@ const RootNavigation = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Auth" component={AuthNavigation} />
-        <Stack.Screen name="App" component={AppNavigation} />
+        {/* <Stack.Screen name="Auth" component={AuthStack} />
+        <Stack.Screen name='Registration' component={RegistrationStack} /> */}
+        <Stack.Screen name="App" component={AppStack} />
     </Stack.Navigator>
   );
 };

@@ -9,6 +9,10 @@ import { Provider } from 'react-redux';
 import { store } from '@/api/store/store';
 import { ThemeProvider } from '@/api/store/theme/ThemeContext';
 
+import Geocoder from 'react-native-geocoding';
+
+Geocoder.init("AIzaSyAzN93q2miKez3lxqYnRTPlVcBkAXetuQk", { language: "en" });
+
 function App() {
   return (
     <GestureHandlerRootView>

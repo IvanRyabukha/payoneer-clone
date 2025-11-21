@@ -7,7 +7,7 @@ import {
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LigthTheme, DarkTheme, Theme } from './types/theme';
-import { Alert } from 'react-native';
+import { Alert, useColorScheme } from 'react-native';
 
 interface IThemeContext {
   theme: Theme;
@@ -17,9 +17,9 @@ interface IThemeContext {
 const ThemeContext = createContext<IThemeContext | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
-  const [theme, setTheme] = useState<Theme>(LigthTheme);
+  const deviceTheme = useColorScheme() === 'dark' ? DarkTheme : LigthTheme;
 
-  //TODO: take phone theme
+  const [theme, setTheme] = useState<Theme>(deviceTheme);
 
   useEffect(() => {
     const loadTheme = async () => {
@@ -27,7 +27,7 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
         const storedTheme = await AsyncStorage.getItem('appTheme');
         if (storedTheme === 'dark') {
           setTheme(DarkTheme);
-        } else {
+        } else if (storedTheme === 'light'){
           setTheme(LigthTheme);
         }
       } catch (error) {
@@ -39,7 +39,7 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const toggleTheme = async () => {
-    const newTheme = theme.dark ? LigthTheme : DarkTheme;
+    const newTheme = theme?.dark ? LigthTheme : DarkTheme;
     setTheme(newTheme);
     try {
       await AsyncStorage.setItem('appTheme', newTheme.dark ? 'dark' : 'light')
