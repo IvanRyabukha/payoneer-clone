@@ -4,4 +4,15 @@ module.exports = {
     '@babel/preset-typescript',
     '@babel/preset-flow',
   ],
+  plugins: [
+    'react-native-worklets/plugin',
+    [
+      'module-resolver',
+      {
+        alias: {
+          '@': './src',
+        },
+      },
+    ],
+  ],
 };
