@@ -12,11 +12,12 @@ import CustomButton from '@/screens/shared/components/CustomButton';
 
 interface Props {
   onNavigate: () => void;
+  onLogin: () => void;
 }
 
 //TODO: create login function
 
-const Footer = ({ onNavigate }: Props) => {
+const Footer = ({ onNavigate, onLogin }: Props) => {
   const { theme } = useTheme();
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const moveAnim = useRef(new Animated.Value(0)).current;
@@ -63,7 +64,7 @@ const Footer = ({ onNavigate }: Props) => {
       <CustomButton
         label="Sign in"
         colors={['#a059fd', '#6E5DFF', '#045DDA']}
-        handlePress={() => {}}
+        handlePress={onLogin}
       />
       <Animated.View style={[styles.registerContainer, { opacity: fadeAnim }]}>
         <Text style={[styles.registerText, { color: theme.colors.text }]}>

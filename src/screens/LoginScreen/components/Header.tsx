@@ -2,9 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { useTheme } from '@/api/store/theme/ThemeContext';
 import { useLocale } from '@/api/store/locale/LocaleContext';
-import LogoDark from '../../../../assets/img/logo-dark.svg';
-import LogoLight from '../../../../assets/img/logo-light.svg';
-
+import Logo from '../../../../assets/img/logo.svg';
 
 interface Props {
   onNavigate: () => void;
@@ -16,11 +14,12 @@ const Header = ({ onNavigate }: Props) => {
 
   return (
     <View style={styles.loginTop}>
-      {theme.dark ? (
-        <LogoDark width={100} height={35} />
-      ) : (
-        <LogoLight width={100} height={35} />
-      )}
+      <View style={styles.logo}>
+        <Logo width={18} height={18} />
+        <Text style={[styles.label, { color: theme.colors.text }]}>
+          Payoneer
+        </Text>
+      </View>
       <TouchableOpacity style={styles.langBtn} onPress={onNavigate}>
         <Image source={flags[language.code]} style={styles.flag} />
         <Text style={[styles.langCode, { color: theme.colors.text }]}>
@@ -41,6 +40,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  logo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  label: {
+    marginLeft: 2,
+    fontSize: 16,
+    fontWeight: '600',
   },
   langBtn: {
     flexDirection: 'row',

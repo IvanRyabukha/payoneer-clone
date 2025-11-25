@@ -13,13 +13,17 @@ import { useTheme } from '@/api/store/theme/ThemeContext';
 type Props = {
   icon: LucideIcon;
   selected: boolean;
+  colors: string[];
   size?: number;
+  strokeWidth?: number;
 };
 
 const AnimatedGradientIcon: React.FC<Props> = ({
   icon: Icon,
   selected,
+  colors,
   size = 25,
+  strokeWidth = 1.5,
 }) => {
   const { theme } = useTheme();
 
@@ -38,7 +42,7 @@ const AnimatedGradientIcon: React.FC<Props> = ({
   return (
     <View style={[styles.container, { width: size, height: size }]}>
       <View style={styles.center}>
-        <Icon size={size} color={theme.colors.text} strokeWidth={1.5} />
+        <Icon size={size} color={theme.colors.text} strokeWidth={strokeWidth} />
       </View>
 
       <Animated.View
@@ -48,16 +52,16 @@ const AnimatedGradientIcon: React.FC<Props> = ({
           style={{ flex: 1 }}
           maskElement={
             <View style={styles.center}>
-              <Icon size={size} color={'#000'} strokeWidth={1.5} />
+              <Icon size={size} color={'#000'} strokeWidth={strokeWidth} />
             </View>
           }
         >
           <LinearGradient
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
-            colors={['#f31b14', '#6E5DFF', '#045DDA']}
+            colors={colors}
             style={{ flex: 1 }}
-            locations={[0, 0.7, 1]}
+            locations={[0, 0.5, 1]}
           />
         </MaskedView>
       </Animated.View>

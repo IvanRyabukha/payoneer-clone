@@ -32,6 +32,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     rootNav?.navigate('Registration');
   };
 
+  const goToLogin = () => {
+    const rootNav =
+      navigation.getParent<NativeStackNavigationProp<RootStackParamList>>();
+    rootNav?.navigate('App');
+  };
+
   return (
     <KeyboardAwareScrollView
       style={{ flex: 1 }}
@@ -52,7 +58,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
         <Button title="Toggle theme" onPress={toggleTheme} />
 
-        <Footer onNavigate={goToRegistration} />
+        <Footer onNavigate={goToRegistration} onLogin={goToLogin} />
       </View>
     </KeyboardAwareScrollView>
   );

@@ -64,7 +64,12 @@ const RegisterCard: React.FC<Props> = ({
   return (
     <Pressable onPress={onPress}>
       <Animated.View style={[styles.cardWrapper, animationStyle]}>
-        <AnimatedGradientIcon icon={Icon} selected={selected} size={25} />
+        <AnimatedGradientIcon
+          icon={Icon}
+          selected={selected}
+          size={25}
+          colors={['#f31b14', '#6E5DFF', '#045DDA']}
+        />
 
         <View style={styles.cardInfo}>
           {title && (

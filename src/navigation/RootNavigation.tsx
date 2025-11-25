@@ -22,8 +22,8 @@ const RootNavigation = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {/* <Stack.Screen name="Auth" component={AuthStack} />
-        <Stack.Screen name='Registration' component={RegistrationStack} /> */}
+        {/* <Stack.Screen name="Auth" component={AuthStack} /> */}
+        {/* <Stack.Screen name='Registration' component={RegistrationStack} /> */}
         <Stack.Screen name="App" component={AppStack} />
     </Stack.Navigator>
   );
